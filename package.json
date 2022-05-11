@@ -1,0 +1,16 @@
+{
+  "name": "codio-api-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ksimuk/codio-api-examples.git",
+  "author": "ksimuk <maxim.kraev@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "codio-api-js": "^0.6.4",
+    "dotenv": "^16.0.1",
+    "lodash": "^4.17.21",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}
