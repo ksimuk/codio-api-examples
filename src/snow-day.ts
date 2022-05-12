@@ -6,12 +6,34 @@ const api = codio.v1
 const clientId = process.env['CLIENT'] || 'clientId'
 const secret = process.env['SECRET'] || 'secret'
 // hardcoded values
-const courseId = process.env['COURSE_ID'] || 'courseId'
-const snowDayStart = new Date(process.env['SNOW_DAY_START'] || 'yyyy-mm-ddThh:mm:ss')
-const snowDayStop = new Date(process.env['SNOW_DAY_STOP'] || 'yyyy-mm-ddThh:mm:ss')
-const shiftDays = _.parseInt(process.env['SHIFT_DAYS'] || "2")  
-const shiftHours = _.parseInt(process.env['SHIFT_HOURS'] || "12") 
-const shiftMinutes = _.parseInt(process.env['SHIFT_MINUTES'] || "0")
+let courseId = 'courseId'
+let snowDayStart = new Date('yyyy-mm-ddThh:mm:ss')
+let snowDayStop = new Date('yyyy-mm-ddThh:mm:ss')
+let shiftDays = 2
+let shiftHours = 12
+let shiftMinutes = 0
+
+function applyEnv() {
+  courseId = process.env['COURSE_ID'] || courseId
+  if (process.env['SNOW_DAY_START']) {
+    snowDayStart = new Date(process.env['SNOW_DAY_START']) || snowDayStart
+  }
+  if (process.env['SNOW_DAY_STOP']) {
+    snowDayStop = new Date(process.env['SNOW_DAY_STOP']) || snowDayStop
+  }
+  const _shiftDays = _.toNumber(process.env['SHIFT_DAYS'])
+  const _shiftHours = _.toNumber(process.env['SHIFT_HOURS'])
+  const _shiftMinutes = _.toNumber(process.env['SHIFT_MINUTES'])
+  if (!_.isNaN(_shiftDays)) {
+    shiftDays = _shiftDays
+  }
+  if (!_.isNaN(_shiftHours)) {
+    shiftHours = _shiftHours
+  }
+  if (!_.isNaN(_shiftMinutes)) {
+    shiftMinutes = _shiftMinutes
+  }
+}
 
 function adjustDate(date: Date): boolean {
   if (date < snowDayStop && date > snowDayStart) {
@@ -24,6 +46,7 @@ function adjustDate(date: Date): boolean {
 }
 
 async function main() {
+  applyEnv()
   await api.auth(clientId, secret)
 
   const course = await api.course.info(courseId)
