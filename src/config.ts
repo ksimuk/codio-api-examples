@@ -35,28 +35,26 @@ async function main() {
       penalties.push({
         id: 1,
         percent: 10,
-        datetime: setDate(settings.endTime, -10),
+        datetime: setDate(settings.endTime, -7),
         message: '10%'
       })
       penalties.push({
         id: 2,
         percent: 30,
-        datetime: setDate(settings.endTime, -7),
+        datetime: setDate(settings.endTime, -4),
         message: '30%'
       })
     } else if (assignment.name.startsWith('Labs:')) {
       // Labs can be up to 3 days late with a 5% penalty for every 12 hours the submission is late
-      const range = _.range(-3 * 24, 0, 12)
+
       let percent = 5
-      let i = 1
-      for (const shift of range) {
+      for (let shift = -3 * 24; shift < 0; shift += 12) {
         penalties.push({
-          id: i,
+          id: shift,
           percent,
           datetime: setDate(settings.endTime, 0, shift),
           message: `${percent}%`
         })
-        i++
         percent += 5
       }
     } else if (assignment.name.startsWith('Project:')) {
@@ -64,7 +62,7 @@ async function main() {
       const range = _.range(-24, 0, 1)
       let percent = 1
       let i = 1
-      for (const shift of range) {
+      for (let shift = -24; shift < 0; shift++) {
         penalties.push({
           id: i,
           percent,

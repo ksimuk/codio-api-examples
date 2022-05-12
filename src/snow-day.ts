@@ -1,10 +1,7 @@
 require('dotenv').config()
-import codio from 'codio-api-js'
+import {v1 as api} from 'codio-api-js'
 import _ from 'lodash'
-const api = codio.v1
 
-const clientId = process.env['CLIENT'] || 'clientId'
-const secret = process.env['SECRET'] || 'secret'
 // hardcoded values
 let courseId = 'courseId'
 let snowDayStart = new Date('yyyy-mm-ddThh:mm:ss')
@@ -12,6 +9,10 @@ let snowDayStop = new Date('yyyy-mm-ddThh:mm:ss')
 let shiftDays = 2
 let shiftHours = 12
 let shiftMinutes = 0
+
+
+const clientId = process.env['CLIENT'] || 'clientId'
+const secret = process.env['SECRET'] || 'secret'
 
 function applyEnv() {
   courseId = process.env['COURSE_ID'] || courseId
