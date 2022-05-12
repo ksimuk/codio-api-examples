@@ -16,7 +16,7 @@ async function main() {
     console.log(`${module.name} :`)
     for (const assignment of module.assignments) {
       const settings = await api.assignment.getSettings(courseId, assignment.id)
-      console.log(`  ${assignment.name} - Due ${settings.endTime.toLocaleString()}`)
+      console.log(`  ${assignment.name} - Due ${settings.endTime?.toLocaleString()}`)
     }
   }
 }

@@ -24,6 +24,7 @@ async function main() {
   const course = await api.course.info(courseId)
   for (const assignment of course.assignments) {
     const settings = await api.assignment.getSettings(courseId, assignment.id)
+    console.log(`Updateing ${assignment.name}`)
     if (!settings.endTime) {
       continue
     }
@@ -38,7 +39,7 @@ async function main() {
         message: '10%'
       })
       penalties.push({
-        id: 1,
+        id: 2,
         percent: 30,
         datetime: setDate(settings.endTime, -7),
         message: '30%'
@@ -52,7 +53,7 @@ async function main() {
         penalties.push({
           id: i,
           percent,
-          datetime: setDate(settings.endTime, shift),
+          datetime: setDate(settings.endTime, 0, shift),
           message: `${percent}%`
         })
         i++
@@ -67,12 +68,14 @@ async function main() {
         penalties.push({
           id: i,
           percent,
-          datetime: setDate(settings.endTime, shift),
+          datetime: setDate(settings.endTime, 0, shift),
           message: `${percent}%`
         })
         i++
         percent += 1
       }
+    } else {
+      continue
     }
     await api.assignment.updateSettings(courseId, assignment.id, {penalties})
   }
