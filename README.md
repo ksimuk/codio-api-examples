@@ -1,5 +1,6 @@
 # codio-api-examples
 
+requires `node` and `yarn`
 
 ## usage:
 
