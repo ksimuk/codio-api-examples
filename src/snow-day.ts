@@ -56,7 +56,6 @@ async function main() {
     if (!settings.endTime) {
       continue
     }
-    console.log(settings)
     let modified = adjustDate(settings.endTime)
     const penalties = settings.penalties || []
     for (const penalty of penalties) {
