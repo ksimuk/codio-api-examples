@@ -1,5 +1,6 @@
 require('dotenv').config()
 import codio from 'codio-api-js'
+import _ from 'lodash'
 const api = codio.v1
 
 const clientId = process.env['CLIENT'] || 'clientId'
@@ -16,7 +17,10 @@ async function main() {
     console.log(`${module.name} :`)
     for (const assignment of module.assignments) {
       const settings = await api.assignment.getSettings(courseId, assignment.id)
-      const due = settings.endTime ? settings.endTime.toLocaleString() : 'No'
+      let due = settings.endTime ? settings.endTime.toLocaleString() : 'No'
+      if (settings.penalties && settings.penalties?.length > 0) {
+        due = _.sortBy(settings.penalties, ['datetime'])[0].datetime.toLocaleString()
+      }
       console.log(`  ${assignment.name} - Due ${due}`)
     }
   }
