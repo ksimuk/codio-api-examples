@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/lodash": "^4.14.182",
-    "codio-api-js": "^0.8",
+    "codio-api-js": "^0.8.1",
     "dotenv": "^16.0.1",
     "lodash": "^4.17.21",
     "ts-node": "^10.7.0",
