@@ -9,7 +9,7 @@ const secret = process.env['SECRET'] || 'secret'
 // hardcoded values
 const courseId = process.env['COURSE_ID'] || 'courseId'
 const studentEmail = process.env['EMAIL'] || ''
-const multilier = _.toNumber(process.env['MULTIPLIER']) || 1.5
+const multilier = (_.toNumber(process.env['MULTIPLIER']) || 1.5) - 1 // # Elises' comment to reduce to original time limit
 
 async function main() {
   await api.auth(clientId, secret)
